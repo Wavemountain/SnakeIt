@@ -13,11 +13,12 @@
         <canvas id="gameCanvas" width="600" height="600"></canvas>
         <div class="info">
             <div class="instructions">
-                <h2>Instruktioner</h2>
-                <p>Styr ormen med piltangenterna.</p>
-                <p>Ät äpplen för att få poäng!</p>
-                <p>Spelet avslutas om ormen krockar med sig själv eller kanterna.</p>
-            </div>
+				<h2>Instruktioner</h2>
+				<p>Styr ormen med piltangenterna på en dator.</p>
+				<p>På mobilen använder du knapparna för att styra ormen: "Up", "Down", "Left", och "Right".</p>
+				<p>Ät äpplen för att få poäng!</p>
+				<p>Spelet avslutas om ormen krockar med sig själv eller kanterna.</p>
+			</div>
             <div class="controls">
                 <button id="startBtn">Start</button>
                 <div id="score">Poäng: 0</div>
@@ -26,6 +27,12 @@
 			<div id="gameOver" class="game-over" style="display: none;">
 				<h2>Game Over!</h2>
 				<button id="restartBtn">Starta om</button>
+			</div>
+			<div class="mobile-controls">
+				<button id="upBtn">Up</button>
+				<button id="leftBtn">Left</button>
+				<button id="downBtn">Down</button>
+				<button id="rightBtn">Right</button>
 			</div>
         </div>
     </div>

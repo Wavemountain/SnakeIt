@@ -4,6 +4,10 @@ const startBtn = document.getElementById("startBtn");
 const scoreDisplay = document.getElementById("score");
 const highscoreDisplay = document.getElementById("highscore");
 const ipAddressDisplay = document.getElementById("ipAddress");
+const upBtn = document.getElementById("upBtn");
+const downBtn = document.getElementById("downBtn");
+const leftBtn = document.getElementById("leftBtn");
+const rightBtn = document.getElementById("rightBtn");
 
 let snake = [];
 let direction = { x: 0, y: 0 };
@@ -11,6 +15,20 @@ let apple = {};
 let score = 0;
 let highscore = getHighscore();
 let gameInterval;
+
+
+upBtn.addEventListener("click", () => {
+    if (direction.y === 0) direction = { x: 0, y: -1 };
+});
+downBtn.addEventListener("click", () => {
+    if (direction.y === 0) direction = { x: 0, y: 1 };
+});
+leftBtn.addEventListener("click", () => {
+    if (direction.x === 0) direction = { x: -1, y: 0 };
+});
+rightBtn.addEventListener("click", () => {
+    if (direction.x === 0) direction = { x: 1, y: 0 };
+});
 
 function getHighscore() {
     return parseInt(localStorage.getItem("highscore")) || 0;
@@ -146,6 +164,21 @@ startBtn.addEventListener("click", () => {
         draw();
     }, 100);
 });
+function resizeCanvas() {
+    if (window.innerWidth < 600) { // Endast på mobila enheter
+        const canvasSize = Math.min(window.innerWidth, window.innerHeight) * 0.8; // Anpassa till 80% av skärmen
+        canvas.width = canvasSize;
+        canvas.height = canvasSize;
+    } else {
+        // Standardstorlek på dator
+        canvas.width = 600;
+        canvas.height = 600;
+    }
+    draw(); // Rita om spelet för den nya canvas-storleken
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas(); // Kör funktionen initialt
 
 document.addEventListener("keydown", changeDirection);
 highscoreDisplay.innerText = "Highscore: " + highscore;

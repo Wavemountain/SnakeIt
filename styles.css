@@ -38,7 +38,30 @@ canvas {
 .controls {
     margin-top: 10px;
 }
+.mobile-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+}
 
+.mobile-controls button {
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    #gameCanvas {
+        width: 90%;
+        height: auto;
+    }
+}
 .game-over {
     position: absolute;
     top: 50%; /* Centrera vertikalt */
@@ -50,6 +73,20 @@ canvas {
     border-radius: 10px;
     text-align: center;
     z-index: 100; /* Se till att den visas ovanpå allt annat */
+}
+/* Standardstorlek på dator */
+canvas {
+    width: 600px;
+    height: 600px;
+    border: 1px solid black;
+}
+
+/* Anpassning för mobiler */
+@media (max-width: 600px) {
+    canvas {
+        width: 90%;
+        height: auto;
+    }
 }
 
 #ipAddress {
