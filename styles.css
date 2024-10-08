@@ -1,117 +1,74 @@
-/* Ställ in grundläggande stilar för body-elementet */
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Lägg till för att centrera vertikalt */
+    justify-content: center;
     height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
     font-family: 'Roboto', sans-serif;
 }
 
-/* Stilar för huvudrubriken */
-h1 {
-    margin-bottom: 20px; /* Utrymme under rubriken */
-    font-family: 'Press Start 2P', cursive; /* Retro typsnitt för känsla av ett klassiskt spel */
-}
-
-/* Stilar för container som innehåller spelet och information */
 .container {
     display: flex;
     justify-content: center;
-    align-items: center; /* Lägg till för att centrera både horisontellt och vertikalt */
+    align-items: center;
     position: relative;
-    width: 100%; /* Se till att behållaren täcker hela skärmens bredd */
-    max-width: 600px; /* Begränsa maxstorleken på container på bredare skärmar */
+    width: 100%;
+    max-width: 600px;
 }
 
-/* Stilar för spelplanen (canvas) */
 canvas {
     border: 1px solid black;
-    width: 100%; /* Anpassa till containerns bredd */
-    height: auto; /* Bevara proportionerna */
-    max-width: 600px; /* Se till att canvas inte blir för stor på breda skärmar */
+    width: 100%;
+    height: auto;
+    max-width: 600px;
 }
 
-/* Stilar för informationssektionen bredvid spelplanen */
-.info {
-    margin-left: 40px; /* Avstånd mellan spelplanen och informationen */
-    display: flex;
-    flex-direction: column; /* Placera informationen vertikalt */
-}
-
-/* Stilar för instruktionerna */
-.instructions {
-    background-color: #e0e0e0; /* Ljusgrå bakgrund för instruktionerna */
-    padding: 10px; /* Utrymme runt texten */
-    border-radius: 5px; /* Rundade hörn för instruktionerna */
-}
-
-/* Stilar för kontrollsektionen */
-.controls {
-    margin-top: 10px; /* Avstånd ovanför kontrollerna */
-}
-
-/* Stilar för de mobila kontrollknapparna */
 .mobile-controls {
     display: flex;
-    flex-direction: column; /* Placera knapparna i kolumner */
-    align-items: center; /* Centrera knapparna horisontellt */
-    margin-top: 20px; /* Avstånd ovanför kontrollknapparna */
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }
 
-/* Stilar för varje rad av mobilkontroller */
 .mobile-controls-row {
     display: flex;
-    justify-content: center; /* Centrera knapparna horisontellt */
-    margin: 5px 0; /* Utrymme mellan raderna */
+    justify-content: center;
+    margin: 5px 0;
 }
 
-/* Stilar för knapparna för mobila kontroller */
 .mobile-controls button {
-    width: 60px; /* Bredd på knapparna */
-    height: 60px; /* Höjd på knapparna */
-    font-size: 18px; /* Textstorlek på knapparna */
-    margin: 5px; /* Utrymme runt varje knapp */
-    border: none; /* Ta bort standardramen */
-    border-radius: 5px; /* Rundade hörn för knapparna */
-    background-color: #4CAF50; /* Grön bakgrundsfärg för knapparna */
-    color: white; /* Vit textfärg för knapparna */
-    cursor: pointer; /* Ändra muspekaren till en hand när man hovrar över knapparna */
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
 }
 
-/* Ändra knappens färg när den är aktiv (trycks ned) */
 .mobile-controls button:active {
-    background-color: #45a049; /* Mörkare grön för att indikera aktivering */
+    background-color: #45a049;
+}
+
+/* Stilar för instruktionerna längst ned */
+.instructions {
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 20px; /* Lägger till avstånd från de mobila kontrollerna */
+    width: 90%; /* Se till att instruktionerna inte är för breda */
+    max-width: 600px;
 }
 
 /* Anpassa canvas för mindre skärmar */
 @media (max-width: 600px) {
-    canvas {
-        width: 90%; /* Anpassa bredden till 90% av skärmen på mindre enheter */
+    #gameCanvas {
+        width: 90%;
         height: auto;
     }
-}
-
-/* Stilar för Game Over-skärmen */
-.game-over {
-    position: absolute; /* Placera ovanpå allt annat */
-    top: 50%; /* Centrera vertikalt */
-    left: 50%; /* Centrera horisontellt */
-    transform: translate(-50%, -50%); /* Justera positionen för perfekt centrering */
-    background-color: rgba(0, 0, 0, 0.8); /* Halvtransparent svart bakgrund */
-    color: white; /* Vit textfärg */
-    padding: 20px; /* Utrymme runt texten */
-    border-radius: 10px; /* Rundade hörn */
-    text-align: center; /* Centrera texten */
-    z-index: 100; /* Se till att den visas ovanpå allt annat */
-}
-
-/* Stilar för IP-adressvisningen längst ner på skärmen */
-#ipAddress {
-    position: absolute; /* Placera längst ner på skärmen */
-    bottom: 10px; /* Avstånd från botten */
-    text-align: center; /* Centrera texten horisontellt */
-    font-size: 12px; /* Mindre textstorlek */
 }

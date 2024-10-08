@@ -13,14 +13,6 @@
         <!-- Spelplanen (canvas) där spelet ritas upp -->
         <canvas id="gameCanvas" width="600" height="600"></canvas>
         <div class="info">
-            <!-- Instruktioner för spelet -->
-            <div class="instructions">
-                <h2>Instruktioner</h2>
-                <p>Styr ormen med piltangenterna på en dator.</p>
-                <p>På mobilen använder du knapparna för att styra ormen: "Up", "Down", "Left", och "Right".</p>
-                <p>Ät äpplen för att få poäng!</p>
-                <p>Spelet avslutas om ormen krockar med sig själv eller kanterna.</p>
-            </div>
             <!-- Kontrollsektionen med startknapp och poängvisning -->
             <div class="controls">
                 <button id="startBtn">Start</button>
@@ -45,16 +37,23 @@
             <button id="rightBtn">Right</button>
         </div>
     </div>
+    <!-- Instruktioner längst ned på sidan -->
+    <div class="instructions">
+        <h2>Instruktioner</h2>
+        <p>Styr ormen med piltangenterna på en dator.</p>
+        <p>På mobilen använder du knapparna för att styra ormen: "Up", "Down", "Left", och "Right".</p>
+        <p>Ät äpplen för att få poäng!</p>
+        <p>Spelet avslutas om ormen krockar med sig själv eller kanterna.</p>
+    </div>
     <!-- IP-adressvisning längst ner på sidan -->
     <div id="ipAddress"></div>
     <script src="script.js"></script>
-	<script>
-		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('sw.js').then(function(reg) {
-				console.log('Service worker registered.', reg);
-			});
-		}
-	</script>
-
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(function(reg) {
+                console.log('Service worker registered.', reg);
+            });
+        }
+    </script>
 </body>
 </html>
