@@ -11,11 +11,19 @@ body {
 
 .container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 650px; /* Öka maxbredden för att ta hänsyn till padding */
+    padding-right: 20px; /* Lägg till padding till höger om spelområdet */
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px; /* Lägg till lite avstånd mellan kontrollerna och spelplanen */
 }
 
 canvas {
@@ -60,8 +68,8 @@ canvas {
     padding: 10px;
     border-radius: 5px;
     text-align: center;
-    margin-top: 20px; /* Lägger till avstånd från de mobila kontrollerna */
-    width: 90%; /* Se till att instruktionerna inte är för breda */
+    margin-top: 20px;
+    width: 90%;
     max-width: 600px;
 }
 
