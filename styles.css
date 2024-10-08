@@ -24,9 +24,9 @@ h1 {
 
 /* Stilar för spelplanen (canvas) */
 canvas {
-    border: 1px solid black; /* Svart ram runt spelplanen */
-    width: 600px; /* Bredd på spelplanen */
-    height: 600px; /* Höjd på spelplanen */
+    border: 1px solid black; /* Behåll ramen */
+    width: 100%; /* Använd hela canvasens definierade storlek */
+    height: auto; /* Låt höjden justeras proportionellt */
 }
 
 /* Stilar för informationssektionen bredvid spelplanen */

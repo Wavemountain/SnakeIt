@@ -48,17 +48,19 @@ function spawnApple() {
 }
 
 // Rita upp spelet på canvas
+let cellSize = canvas.width / 30;
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Rensa canvas
-    
+
     // Rita äpplet
     ctx.fillStyle = "red";
-    ctx.fillRect(apple.x * 20, apple.y * 20, 20, 20);
-    
+    ctx.fillRect(apple.x * cellSize, apple.y * cellSize, cellSize, cellSize);
+
     // Rita ormen
     ctx.fillStyle = "green";
     for (let segment of snake) {
-        ctx.fillRect(segment.x * 20, segment.y * 20, 20, 20);
+        ctx.fillRect(segment.x * cellSize, segment.y * cellSize, cellSize, cellSize);
     }
 }
 
@@ -68,10 +70,10 @@ function update() {
     const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
 
     // Kontrollera om ormen krockar med väggarna eller sig själv
-    if (head.x < 0 || head.x >= 30 || head.y < 0 || head.y >= 30 || collision(head, snake)) {
-        gameOver(); // Om kollision, avsluta spelet
-        return;
-    }
+	   if (head.x < 0 || head.x >= canvas.width / cellSize || head.y < 0 || head.y >= canvas.height / cellSize) {
+		gameOver(); // Om kollision, avsluta spelet
+		return;
+}
 
     snake.unshift(head); // Lägg till det nya huvudet i början av ormen
 
@@ -139,6 +141,45 @@ function changeDirection(event) {
             break;
     }
 }
+
+function resizeCanvas() {
+    const canvasSize = Math.floor(Math.min(window.innerWidth, window.innerHeight) * 0.8);
+    canvas.width = canvasSize - (canvasSize % 30);  // Gör storleken till en jämn multipel av 30
+    canvas.height = canvas.width;
+    cellSize = canvas.width / 30;
+    draw(); // Rita om spelet efter att canvas har justerats
+}
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+});
+
+canvas.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX > 0 && direction.x === 0) {
+            direction = { x: 1, y: 0 }; // Svep höger
+        } else if (deltaX < 0 && direction.x === 0) {
+            direction = { x: -1, y: 0 }; // Svep vänster
+        }
+    } else {
+        if (deltaY > 0 && direction.y === 0) {
+            direction = { x: 0, y: 1 }; // Svep nedåt
+        } else if (deltaY < 0 && direction.y === 0) {
+            direction = { x: 0, y: -1 }; // Svep uppåt
+        }
+    }
+});
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas(); // Anpassa canvas-storleken direkt vid start
 
 // Event listeners för knappar och tangenttryckningar
 startBtn.addEventListener("click", startGame);
