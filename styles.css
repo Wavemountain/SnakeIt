@@ -1,0 +1,59 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0; /* Ta bort standardmarginaler */
+    background-color: #f0f0f0;
+    font-family: 'Roboto', sans-serif; /* Modern typsnitt för kroppen */
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-family: 'Press Start 2P', cursive; /* Retro typsnitt för titeln */
+}
+
+.container {
+    display: flex;
+    justify-content: center; /* Centrera spelrutan horisontellt */
+}
+
+canvas {
+    border: 1px solid black;
+}
+
+.info {
+    margin-left: 40px; /* Flytta instruktionerna till höger */
+    display: flex;
+    flex-direction: column; /* Se till att instruktioner och kontroller ligger vertikalt */
+}
+
+.instructions {
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif; /* Modern typsnitt för instruktionerna */
+}
+
+.controls {
+    margin-top: 10px;
+}
+
+.game-over {
+    position: absolute;
+    top: 50%; /* Centrera vertikalt */
+    left: 50%; /* Centrera horisontellt */
+    transform: translate(-50%, -50%); /* Justera för att centrera */
+    background-color: rgba(0, 0, 0, 0.8); /* Halvtransparent bakgrund */
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 100; /* Se till att den visas ovanpå allt annat */
+}
+
+#ipAddress {
+    position: absolute;
+    bottom: 10px;
+    text-align: center; /* Centrera IP-adressen */
+}

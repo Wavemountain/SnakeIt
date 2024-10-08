@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Snake Game</h1>
+    <div class="container">
+        <canvas id="gameCanvas" width="600" height="600"></canvas>
+        <div class="info">
+            <div class="instructions">
+                <h2>Instruktioner</h2>
+                <p>Styr ormen med piltangenterna.</p>
+                <p>Ät äpplen för att få poäng!</p>
+                <p>Spelet avslutas om ormen krockar med sig själv eller kanterna.</p>
+            </div>
+            <div class="controls">
+                <button id="startBtn">Start</button>
+                <div id="score">Poäng: 0</div>
+                <div id="highscore">Highscore: 0</div>
+            </div>
+			<div id="gameOver" class="game-over" style="display: none;">
+				<h2>Game Over!</h2>
+				<button id="restartBtn">Starta om</button>
+			</div>
+        </div>
+    </div>
+    <div id="ipAddress"></div>
+    <script src="script.js"></script>
+</body>
+</html>
