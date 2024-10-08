@@ -1,14 +1,17 @@
+// Hämta element från DOM
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const startBtn = document.getElementById("startBtn");
 const scoreDisplay = document.getElementById("score");
 const highscoreDisplay = document.getElementById("highscore");
-const ipAddressDisplay = document.getElementById("ipAddress");
+const gameOverElement = document.getElementById("gameOver");
+const restartBtn = document.getElementById("restartBtn");
 const upBtn = document.getElementById("upBtn");
 const downBtn = document.getElementById("downBtn");
 const leftBtn = document.getElementById("leftBtn");
 const rightBtn = document.getElementById("rightBtn");
 
+// Spelvariabler
 let snake = [];
 let direction = { x: 0, y: 0 };
 let apple = {};
@@ -16,37 +19,27 @@ let score = 0;
 let highscore = getHighscore();
 let gameInterval;
 
-
-upBtn.addEventListener("click", () => {
-    if (direction.y === 0) direction = { x: 0, y: -1 };
-});
-downBtn.addEventListener("click", () => {
-    if (direction.y === 0) direction = { x: 0, y: 1 };
-});
-leftBtn.addEventListener("click", () => {
-    if (direction.x === 0) direction = { x: -1, y: 0 };
-});
-rightBtn.addEventListener("click", () => {
-    if (direction.x === 0) direction = { x: 1, y: 0 };
-});
-
+// Hämta highscore från localStorage
 function getHighscore() {
     return parseInt(localStorage.getItem("highscore")) || 0;
 }
 
+// Sätt highscore i localStorage
 function setHighscore(value) {
     localStorage.setItem("highscore", value);
 }
 
+// Återställ spelet till startläge
 function resetGame() {
-    clearInterval(gameInterval); // Stoppa tidigare intervall innan vi startar om
-    snake = [{ x: 10, y: 10 }];
-    direction = { x: 0, y: 0 };
-    score = 0;
-    updateScoreDisplay();
-    spawnApple();
+    clearInterval(gameInterval); // Stoppa eventuellt pågående spel
+    snake = [{ x: 10, y: 10 }]; // Placera ormen på startposition
+    direction = { x: 0, y: 0 }; // Ingen rörelse i början
+    score = 0; // Återställ poäng
+    updateScoreDisplay(); // Uppdatera poängvisningen
+    spawnApple(); // Placera ett nytt äpple
 }
 
+// Skapa ett äpple på en slumpmässig position
 function spawnApple() {
     apple = {
         x: Math.floor(Math.random() * 30),
@@ -54,41 +47,45 @@ function spawnApple() {
     };
 }
 
+// Rita upp spelet på canvas
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Rensa canvas
     
-    // Draw apple
+    // Rita äpplet
     ctx.fillStyle = "red";
     ctx.fillRect(apple.x * 20, apple.y * 20, 20, 20);
     
-    // Draw snake
+    // Rita ormen
     ctx.fillStyle = "green";
     for (let segment of snake) {
         ctx.fillRect(segment.x * 20, segment.y * 20, 20, 20);
     }
 }
 
+// Uppdatera spelets logik
 function update() {
+    // Skapa ett nytt huvud för ormen baserat på nuvarande riktning
     const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
 
-    // Check collision with walls
+    // Kontrollera om ormen krockar med väggarna eller sig själv
     if (head.x < 0 || head.x >= 30 || head.y < 0 || head.y >= 30 || collision(head, snake)) {
-        gameOver();
+        gameOver(); // Om kollision, avsluta spelet
         return;
     }
 
-    snake.unshift(head);
+    snake.unshift(head); // Lägg till det nya huvudet i början av ormen
 
-    // Check if snake eats the apple
+    // Kontrollera om ormen äter äpplet
     if (head.x === apple.x && head.y === apple.y) {
-        score++;
-        updateScoreDisplay();
-        spawnApple();
+        score++; // Öka poängen
+        updateScoreDisplay(); // Uppdatera poängvisningen
+        spawnApple(); // Placera ett nytt äpple
     } else {
-        snake.pop();
+        snake.pop(); // Ta bort sista segmentet om inget äpple ätits
     }
 }
 
+// Kontrollera om huvudet krockar med något segment av ormen
 function collision(head, snake) {
     for (let segment of snake) {
         if (head.x === segment.x && head.y === segment.y) {
@@ -98,97 +95,67 @@ function collision(head, snake) {
     return false;
 }
 
+// Hantera spelets slut
 function gameOver() {
-    clearInterval(gameInterval);
+    clearInterval(gameInterval); // Stoppa spelet
     if (score > highscore) {
-        highscore = score;
-        setHighscore(highscore);
+        highscore = score; // Uppdatera highscore om nödvändigt
+        setHighscore(highscore); // Spara highscore
     }
-    highscoreDisplay.innerText = "Highscore: " + highscore;
-
-    // Visa Game Over-rutan
-    const gameOverElement = document.getElementById("gameOver");
-    gameOverElement.style.display = "block";
-    
-    // Starta om spelet när man klickar på "Starta om"
-    document.getElementById("restartBtn").addEventListener("click", () => {
-        gameOverElement.style.display = "none";
-        resetGame();
-        startGame(); // Starta spelet omedelbart
-    });
+    highscoreDisplay.innerText = "Highscore: " + highscore; // Visa uppdaterat highscore
+    gameOverElement.style.display = "block"; // Visa Game Over-skärmen
 }
 
+// Starta spelet
 function startGame() {
-    clearInterval(gameInterval); // Se till att inget gammalt intervall körs
+    resetGame(); // Återställ spelet till startläge
     gameInterval = setInterval(() => {
         if (direction.x !== 0 || direction.y !== 0) {
-            update();
+            update(); // Uppdatera spelet om ormen rör sig
         }
-        draw();
-    }, 100);
+        draw(); // Rita om spelet
+    }, 100); // Uppdatera var 100 ms
 }
 
-document.getElementById("restartBtn").addEventListener("click", () => {
-    const gameOverElement = document.getElementById("gameOver");
-    gameOverElement.style.display = "none"; // Dölja Game Over-rutan
-    resetGame(); // Starta om spelet
-});
-
+// Uppdatera poängvisningen
 function updateScoreDisplay() {
     scoreDisplay.innerText = "Poäng: " + score;
 }
 
+// Ändra riktning på ormen baserat på tangenttryckning
 function changeDirection(event) {
     switch (event.key) {
         case "ArrowUp":
-            if (direction.y === 0) direction = { x: 0, y: -1 };
+            if (direction.y === 0) direction = { x: 0, y: -1 }; // Gå uppåt om inte redan går vertikalt
             break;
         case "ArrowDown":
-            if (direction.y === 0) direction = { x: 0, y: 1 };
+            if (direction.y === 0) direction = { x: 0, y: 1 }; // Gå neråt om inte redan går vertikalt
             break;
         case "ArrowLeft":
-            if (direction.x === 0) direction = { x: -1, y: 0 };
+            if (direction.x === 0) direction = { x: -1, y: 0 }; // Gå vänster om inte redan går horisontellt
             break;
         case "ArrowRight":
-            if (direction.x === 0) direction = { x: 1, y: 0 };
+            if (direction.x === 0) direction = { x: 1, y: 0 }; // Gå höger om inte redan går horisontellt
             break;
     }
 }
 
-startBtn.addEventListener("click", () => {
-    resetGame();
-    gameInterval = setInterval(() => {
-        if (direction.x !== 0 || direction.y !== 0) {
-            update();
-        }
-        draw();
-    }, 100);
+// Event listeners för knappar och tangenttryckningar
+startBtn.addEventListener("click", startGame);
+restartBtn.addEventListener("click", () => {
+    gameOverElement.style.display = "none"; // Dölj Game Over-skärmen
+    startGame(); // Starta om spelet
 });
-function resizeCanvas() {
-    if (window.innerWidth < 600) { // Endast på mobila enheter
-        const canvasSize = Math.min(window.innerWidth, window.innerHeight) * 0.8; // Anpassa till 80% av skärmen
-        canvas.width = canvasSize;
-        canvas.height = canvasSize;
-    } else {
-        // Standardstorlek på dator
-        canvas.width = 600;
-        canvas.height = 600;
-    }
-    draw(); // Rita om spelet för den nya canvas-storleken
-}
 
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas(); // Kör funktionen initialt
+// Event listeners för mobila styrknappar
+upBtn.addEventListener("click", () => changeDirection({ key: "ArrowUp" }));
+downBtn.addEventListener("click", () => changeDirection({ key: "ArrowDown" }));
+leftBtn.addEventListener("click", () => changeDirection({ key: "ArrowLeft" }));
+rightBtn.addEventListener("click", () => changeDirection({ key: "ArrowRight" }));
 
+// Event listener för tangentbordet
 document.addEventListener("keydown", changeDirection);
-highscoreDisplay.innerText = "Highscore: " + highscore;
 
-// Hämta och visa användarens IP-adress
-fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => {
-        ipAddressDisplay.innerText = "Din IP-adress: " + data.ip;
-    })
-    .catch(error => {
-        ipAddressDisplay.innerText = "Kunde inte hämta IP-adress.";
-    });
+// Initial setup
+highscoreDisplay.innerText = "Highscore: " + highscore;
+resetGame();
