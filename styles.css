@@ -1,12 +1,13 @@
 /* Ställ in grundläggande stilar för body-elementet */
 body {
-    display: flex; /* Centrera innehållet horisontellt */
-    flex-direction: column; /* Placera innehållet vertikalt */
-    align-items: center; /* Centrera innehållet horisontellt */
-    height: 100vh; /* Full höjd för att fylla skärmen */
-    margin: 0; /* Ta bort standardmarginaler */
-    background-color: #f0f0f0; /* Ljusgrå bakgrundsfärg */
-    font-family: 'Roboto', sans-serif; /* Använd ett modernt typsnitt */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Lägg till för att centrera vertikalt */
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Stilar för huvudrubriken */
@@ -17,16 +18,20 @@ h1 {
 
 /* Stilar för container som innehåller spelet och information */
 .container {
-    display: flex; /* Flexbox för att ordna innehållet */
-    justify-content: center; /* Centrera innehållet horisontellt */
-    position: relative; /* För placering av Game Over-skärmen */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Lägg till för att centrera både horisontellt och vertikalt */
+    position: relative;
+    width: 100%; /* Se till att behållaren täcker hela skärmens bredd */
+    max-width: 600px; /* Begränsa maxstorleken på container på bredare skärmar */
 }
 
 /* Stilar för spelplanen (canvas) */
 canvas {
-    border: 1px solid black; /* Behåll ramen */
-    width: 100%; /* Använd hela canvasens definierade storlek */
-    height: auto; /* Låt höjden justeras proportionellt */
+    border: 1px solid black;
+    width: 100%; /* Anpassa till containerns bredd */
+    height: auto; /* Bevara proportionerna */
+    max-width: 600px; /* Se till att canvas inte blir för stor på breda skärmar */
 }
 
 /* Stilar för informationssektionen bredvid spelplanen */
@@ -83,9 +88,9 @@ canvas {
 
 /* Anpassa canvas för mindre skärmar */
 @media (max-width: 600px) {
-    #gameCanvas {
-        width: 90%; /* Anpassa bredden till 90% av skärmen */
-        height: auto; /* Justera höjden automatiskt för att behålla proportionerna */
+    canvas {
+        width: 90%; /* Anpassa bredden till 90% av skärmen på mindre enheter */
+        height: auto;
     }
 }
 
