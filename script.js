@@ -19,6 +19,27 @@ let score = 0;
 let highscore = getHighscore();
 let gameInterval;
 
+document.addEventListener("DOMContentLoaded", () => {
+    // Resten av din kod går här
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const startBtn = document.getElementById("startBtn");
+    const scoreDisplay = document.getElementById("score");
+    const highscoreDisplay = document.getElementById("highscore");
+    const gameOverElement = document.getElementById("gameOver");
+    const restartBtn = document.getElementById("restartBtn");
+
+    // Lägg till dina event listeners här
+    startBtn.addEventListener("click", startGame);
+    restartBtn.addEventListener("click", () => {
+        gameOverElement.style.display = "none"; // Dölj Game Over-skärmen
+        startGame(); // Starta om spelet
+    });
+
+    document.addEventListener("keydown", changeDirection);
+    // ... resten av din kod
+});
+
 // Hämta highscore från localStorage
 function getHighscore() {
     return parseInt(localStorage.getItem("highscore")) || 0;
@@ -111,6 +132,7 @@ function gameOver() {
 // Starta spelet
 function startGame() {
     resetGame(); // Återställ spelet till startläge
+    canvas.focus(); // Sätt fokus på canvas så att tangenttryckningar fångas upp
     gameInterval = setInterval(() => {
         if (direction.x !== 0 || direction.y !== 0) {
             update(); // Uppdatera spelet om ormen rör sig
@@ -126,6 +148,8 @@ function updateScoreDisplay() {
 
 // Ändra riktning på ormen baserat på tangenttryckning
 function changeDirection(event) {
+    console.log(event.key); // Logga vilken tangent som trycks ned
+
     switch (event.key) {
         case "ArrowUp":
             if (direction.y === 0) direction = { x: 0, y: -1 }; // Gå uppåt om inte redan går vertikalt
@@ -177,7 +201,9 @@ canvas.addEventListener('touchend', (e) => {
         }
     }
 });
-
+document.addEventListener("DOMContentLoaded", () => {
+    canvas.focus(); // Se till att canvasen får fokus när sidan laddas
+});
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas(); // Anpassa canvas-storleken direkt vid start
 

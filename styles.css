@@ -7,6 +7,7 @@ body {
     margin: 0;
     background-color: #f0f0f0;
     font-family: 'Roboto', sans-serif;
+    overflow: hidden; /* Förhindra scrollning */
 }
 
 .container {
@@ -31,35 +32,6 @@ canvas {
     width: 100%;
     height: auto;
     max-width: 600px;
-}
-
-.mobile-controls {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.mobile-controls-row {
-    display: flex;
-    justify-content: center;
-    margin: 5px 0;
-}
-
-.mobile-controls button {
-    width: 60px;
-    height: 60px;
-    font-size: 18px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
-
-.mobile-controls button:active {
-    background-color: #45a049;
 }
 
 /* Stilar för instruktionerna längst ned */
