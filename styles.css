@@ -17,14 +17,15 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 7px;
+	font-size: 1.7em; 
 }
 
 /* Retro-stil för poäng och highscore */
 #score, #highscore {
     font-family: 'Press Start 2P', cursive; /* Retro font */
     color: white; /* Vit färg för texten */
-    font-size: 18px; /* Lite större än instruktionstexten */
+    font-size: 16px; /* Lite större än instruktionstexten */
     margin-top: 10px;
 }
 
@@ -34,8 +35,9 @@ h1 {
     align-items: center;
     position: relative;
     width: 100%;
-    max-width: 650px; /* Öka maxbredden för att ta hänsyn till padding */
-    padding-right: 20px; /* Lägg till padding till höger om spelområdet */
+    max-width: 600px; /* Öka maxbredden för att ta hänsyn till padding */
+    padding-right: 0; /* Ta bort extra padding */
+    box-sizing: border-box; /* För att inkludera padding i bredden */
 }
 
 .controls {
@@ -60,7 +62,7 @@ canvas {
     border-radius: 5px;
     text-align: center;
     margin-top: 10px;
-    width: 90%;
+    width: 100%;
     max-width: 600px;
     font-family: 'Roboto', sans-serif; /* Enkel och lättläst font */
     font-size: 14px;
