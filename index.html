@@ -15,19 +15,21 @@
     <div class="container">
         <!-- Kontrollsektionen med startknapp och poängvisning ovanför spelplanen -->
         <div class="controls">
-            <button id="startBtn">Start</button>
             <div id="score">Poäng: 0</div>
             <div id="highscore">Highscore: 0</div>
         </div>
         <!-- Spelplanen (canvas) där spelet ritas upp -->
         <canvas id="gameCanvas" width="600" height="600" tabindex="0"></canvas>
-        <div class="info">
+       
+		<div class="info">
             <!-- Game Over-meddelande som visas när spelet tar slut -->
             <div id="gameOver" class="game-over" style="display: none;">
                 <h2>Game Over!</h2>
-                <button id="restartBtn">Starta om</button>
             </div>
         </div>
+		
+		<button id="startBtn">Start</button>
+		
     </div>
     <!-- Instruktioner längst ned på sidan -->
     <div class="instructions">

@@ -54,6 +54,34 @@ canvas {
     max-width: 600px;
 	background-color: white;
 }
+/* Stil för startknappen */
+#startBtn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    color: white;
+    background-color: #4CAF50;
+    border: 2px solid #388E3C;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Hover-effekt för startknappen */
+#startBtn:hover {
+    background-color: #388E3C;
+    transform: scale(1.05);
+}
+
+/* Stil för Game Over-texten */
+.game-over h2 {
+    font-family: 'Press Start 2P', cursive; /* Retro font */
+    color: red; /* Röd färg för texten */
+    font-size: 24px; /* Större fontstorlek */
+    text-align: center;
+    margin: 20px 0; /* Litet mellanrum runt texten */
+}
 
 /* Anpassa instruktionsrutan för retro-look */
 .instructions {

@@ -33,13 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const restartBtn = document.getElementById("restartBtn");
 
 	highscoreDisplay.innerText = "Highscore: " + highscore;
-	
+	canvas.style.display = "none"; // Dölj canvas
+	scoreDisplay.style.display = "none"; //dölj poängen
+	highscoreDisplay.style.display = "none"; //dölj highscore
     // Lägg till dina event listeners här
     startBtn.addEventListener("click", startGame);
-    restartBtn.addEventListener("click", () => {
-        gameOverElement.style.display = "none"; // Dölj Game Over-skärmen
-        startGame(); // Starta om spelet
-    });
 
     document.addEventListener("keydown", changeDirection);
     // ... resten av din kod
@@ -53,24 +51,6 @@ function getHighscore() {
 // Sätt highscore i localStorage
 function setHighscore(value) {
     localStorage.setItem("highscore", value);
-}
-
-
-
-// Återställ spelet till startläge
-function resetGame() {
-    clearInterval(gameInterval); // Stoppa eventuellt pågående spel
-
-    // Skapa en orm med 2 segment vid start, placerade horisontellt
-    snake = [
-        { x: 10, y: 10 }, // Huvudet
-        { x: 9, y: 10 }   // Första segmentet bakom huvudet
-    ];
-
-    direction = { x: 0, y: 0 }; // Ingen rörelse i början
-    score = 0; // Återställ poäng
-    updateScoreDisplay(); // Uppdatera poängvisningen
-    spawnApple(); // Placera ett nytt äpple
 }
 
 // Skapa ett äpple på en slumpmässig position
@@ -177,17 +157,7 @@ function collision(head, snake) {
     return false; // Ingen kollision
 }
 
-// Hantera spelets slut
-function gameOver() {
-	gameOverSound.play();
-    clearInterval(gameInterval); // Stoppa spelet
-    if (score > highscore) {
-        highscore = score; // Uppdatera highscore om nödvändigt
-        setHighscore(highscore); // Spara highscore
-    }
-    highscoreDisplay.innerText = "Highscore: " + highscore; // Visa uppdaterat highscore
-    gameOverElement.style.display = "block"; // Visa Game Over-skärmen
-}
+
 
 // Starta spelet
 function startGame() {
@@ -199,6 +169,38 @@ function startGame() {
         }
         draw(); // Rita om spelet
     }, 100); // Uppdatera var 100 ms
+}
+
+// Hantera spelets slut
+function gameOver() {
+	gameOverSound.play();
+    clearInterval(gameInterval); // Stoppa spelet
+    if (score > highscore) {
+        highscore = score; // Uppdatera highscore om nödvändigt
+        setHighscore(highscore); // Spara highscore
+    }
+    highscoreDisplay.innerText = "Highscore: " + highscore; // Visa uppdaterat highscore
+	canvas.style.display = "none"; // Dölj canvas
+	gameOverElement.style.display = "block"; // Visa Game Over-skärmen
+}
+
+// Återställ spelet till startläge
+function resetGame() {
+    clearInterval(gameInterval); // Stoppa eventuellt pågående spel
+	gameOverElement.style.display = "none"; // Dölj Game Over-skärmen
+	canvas.style.display = "block"; // Visa canvas igen
+	scoreDisplay.style.display = "block"; //dölj poängen
+	highscoreDisplay.style.display = "block"; //dölj highscore
+    // Skapa en orm med 2 segment vid start, placerade horisontellt
+    snake = [
+        { x: 10, y: 10 }, // Huvudet
+        { x: 9, y: 10 }   // Första segmentet bakom huvudet
+    ];
+
+    direction = { x: 0, y: 0 }; // Ingen rörelse i början
+    score = 0; // Återställ poäng
+    updateScoreDisplay(); // Uppdatera poängvisningen
+    spawnApple(); // Placera ett nytt äpple
 }
 
 // Uppdatera poängvisningen
