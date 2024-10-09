@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	highscoreDisplay.style.display = "none"; //dölj highscore
     // Lägg till dina event listeners här
     startBtn.addEventListener("click", startGame);
-
+	
     document.addEventListener("keydown", changeDirection);
     // ... resten av din kod
 });
@@ -182,6 +182,7 @@ function gameOver() {
     highscoreDisplay.innerText = "Highscore: " + highscore; // Visa uppdaterat highscore
 	canvas.style.display = "none"; // Dölj canvas
 	gameOverElement.style.display = "block"; // Visa Game Over-skärmen
+	startBtn.style.display = "block";
 }
 
 // Återställ spelet till startläge
@@ -191,6 +192,7 @@ function resetGame() {
 	canvas.style.display = "block"; // Visa canvas igen
 	scoreDisplay.style.display = "block"; //dölj poängen
 	highscoreDisplay.style.display = "block"; //dölj highscore
+	startBtn.style.display = "none";
     // Skapa en orm med 2 segment vid start, placerade horisontellt
     snake = [
         { x: 10, y: 10 }, // Huvudet
@@ -205,7 +207,7 @@ function resetGame() {
 
 // Uppdatera poängvisningen
 function updateScoreDisplay() {
-    scoreDisplay.innerText = "Poäng: " + score;
+    scoreDisplay.innerText = "Score: " + score;
 }
 
 // Ändra riktning på ormen baserat på tangenttryckning
