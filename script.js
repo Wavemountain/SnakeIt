@@ -21,6 +21,7 @@ let highscore = getHighscore();
 let gameInterval;
 
 
+
 document.addEventListener("DOMContentLoaded", () => {
     // Resten av din kod går här
     const canvas = document.getElementById("gameCanvas");
@@ -31,6 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const gameOverElement = document.getElementById("gameOver");
     const restartBtn = document.getElementById("restartBtn");
 
+	highscoreDisplay.innerText = "Highscore: " + highscore;
+	
     // Lägg till dina event listeners här
     startBtn.addEventListener("click", startGame);
     restartBtn.addEventListener("click", () => {

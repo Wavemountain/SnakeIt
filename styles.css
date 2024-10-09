@@ -5,14 +5,32 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: black;
     font-family: 'Roboto', sans-serif;
     overflow: hidden; /* Förhindra scrollning */
 }
 
+/* Retro-stil för speltiteln */
+h1 {
+    font-family: 'Press Start 2P', cursive; /* Retro font */
+    color: red; /* Röd färg på titeln */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Retro-stil för poäng och highscore */
+#score, #highscore {
+    font-family: 'Press Start 2P', cursive; /* Retro font */
+    color: white; /* Vit färg för texten */
+    font-size: 18px; /* Lite större än instruktionstexten */
+    margin-top: 10px;
+}
+
 .container {
     display: flex;
-    flex-direction: column;
+	flex-direction: column;
     align-items: center;
     position: relative;
     width: 100%;
@@ -32,9 +50,10 @@ canvas {
     width: 100%;
     height: auto;
     max-width: 600px;
+	background-color: white;
 }
 
-/* Stilar för instruktionerna längst ned */
+/* Anpassa instruktionsrutan för retro-look */
 .instructions {
     background-color: #e0e0e0;
     padding: 10px;
@@ -43,6 +62,8 @@ canvas {
     margin-top: 10px;
     width: 90%;
     max-width: 600px;
+    font-family: 'Roboto', sans-serif; /* Enkel och lättläst font */
+    font-size: 14px;
 }
 
 /* Anpassa canvas för mindre skärmar */
