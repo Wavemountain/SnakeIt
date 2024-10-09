@@ -86,14 +86,45 @@ function draw() {
 
     // Rita äpplet
     ctx.fillStyle = "red";
-    ctx.fillRect(apple.x * cellSize, apple.y * cellSize, cellSize, cellSize);
+    ctx.beginPath();
+    ctx.arc(apple.x * cellSize + cellSize / 2, apple.y * cellSize + cellSize / 2, cellSize / 2, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.fillStyle = "brown";
+    ctx.fillRect(apple.x * cellSize + cellSize / 2 - 2, apple.y * cellSize + 5, 4, 8); // Stjälk
 
     // Rita ormen
-    ctx.fillStyle = "green";
-    for (let segment of snake) {
-        ctx.fillRect(segment.x * cellSize, segment.y * cellSize, cellSize, cellSize);
+    for (let i = 0; i < snake.length; i++) {
+        if (i === 0) { 
+            // Huvudet
+            ctx.fillStyle = "green";
+            ctx.beginPath();
+            ctx.arc(snake[i].x * cellSize + cellSize / 2, snake[i].y * cellSize + cellSize / 2, cellSize / 2, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Ögon
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            ctx.arc(snake[i].x * cellSize + cellSize / 4, snake[i].y * cellSize + cellSize / 4, 2, 0, 2 * Math.PI);
+            ctx.arc(snake[i].x * cellSize + (3 * cellSize) / 4, snake[i].y * cellSize + cellSize / 4, 2, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Tunga
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(snake[i].x * cellSize + cellSize / 2, snake[i].y * cellSize + cellSize);
+            ctx.lineTo(snake[i].x * cellSize + cellSize / 2, snake[i].y * cellSize + cellSize + 5);
+            ctx.stroke();
+        } else {
+            // Kroppssegment
+            ctx.fillStyle = "green";
+            ctx.beginPath();
+            ctx.arc(snake[i].x * cellSize + cellSize / 2, snake[i].y * cellSize + cellSize / 2, cellSize / 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }
     }
 }
+
 
 // Uppdatera spelets logik
 function update() {
