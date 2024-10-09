@@ -11,6 +11,7 @@ const downBtn = document.getElementById("downBtn");
 const leftBtn = document.getElementById("leftBtn");
 const rightBtn = document.getElementById("rightBtn");
 
+
 // Spelvariabler
 let snake = [];
 let direction = { x: 0, y: 0 };
@@ -18,6 +19,7 @@ let apple = {};
 let score = 0;
 let highscore = getHighscore();
 let gameInterval;
+
 
 document.addEventListener("DOMContentLoaded", () => {
     // Resten av din kod går här
@@ -50,10 +52,18 @@ function setHighscore(value) {
     localStorage.setItem("highscore", value);
 }
 
+
+
 // Återställ spelet till startläge
 function resetGame() {
     clearInterval(gameInterval); // Stoppa eventuellt pågående spel
-    snake = [{ x: 10, y: 10 }]; // Placera ormen på startposition
+
+    // Skapa en orm med 2 segment vid start, placerade horisontellt
+    snake = [
+        { x: 10, y: 10 }, // Huvudet
+        { x: 9, y: 10 }   // Första segmentet bakom huvudet
+    ];
+
     direction = { x: 0, y: 0 }; // Ingen rörelse i början
     score = 0; // Återställ poäng
     updateScoreDisplay(); // Uppdatera poängvisningen
@@ -90,16 +100,24 @@ function update() {
     // Skapa ett nytt huvud för ormen baserat på nuvarande riktning
     const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
 
-    // Kontrollera om ormen krockar med väggarna eller sig själv
-	   if (head.x < 0 || head.x >= canvas.width / cellSize || head.y < 0 || head.y >= canvas.height / cellSize) {
-		gameOver(); // Om kollision, avsluta spelet
-		return;
-}
+    // Kontrollera om ormen krockar med väggarna eller med sin egen kropp
+    if (
+        head.x < 0 || 
+        head.x >= canvas.width / cellSize || 
+        head.y < 0 || 
+        head.y >= canvas.height / cellSize || 
+        collision(head, snake)
+    ) {
+        gameOver(); // Om kollision, avsluta spelet
+        return;
+    }
 
-    snake.unshift(head); // Lägg till det nya huvudet i början av ormen
+    // Lägg till det nya huvudet i början av ormen
+    snake.unshift(head);
 
     // Kontrollera om ormen äter äpplet
     if (head.x === apple.x && head.y === apple.y) {
+		eatSound.play(); // Spela upp äta-ljudet
         score++; // Öka poängen
         updateScoreDisplay(); // Uppdatera poängvisningen
         spawnApple(); // Placera ett nytt äpple
@@ -108,18 +126,26 @@ function update() {
     }
 }
 
-// Kontrollera om huvudet krockar med något segment av ormen
+// Kontrollera om ormen krockar med sig själv eller går utanför spelytan
 function collision(head, snake) {
+    // Kontrollera om huvudet är utanför canvasens gränser
+    if (head.x < 0 || head.x >= canvas.width / cellSize || head.y < 0 || head.y >= canvas.height / cellSize) {
+        return true; // Kollision med vägg
+    }
+
+    // Kontrollera om huvudet krockar med något segment av kroppen (inklusive huvudet)
     for (let segment of snake) {
         if (head.x === segment.x && head.y === segment.y) {
-            return true;
+            return true; // Kollision med kroppen
         }
     }
-    return false;
+    
+    return false; // Ingen kollision
 }
 
 // Hantera spelets slut
 function gameOver() {
+	gameOverSound.play();
     clearInterval(gameInterval); // Stoppa spelet
     if (score > highscore) {
         highscore = score; // Uppdatera highscore om nödvändigt
