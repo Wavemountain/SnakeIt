@@ -272,17 +272,18 @@ window.addEventListener("resize", resizeCanvas);
 resizeCanvas(); // Anpassa canvas-storleken direkt vid start
 
 // Event listeners för knappar och tangenttryckningar
-startBtn.addEventListener("click", startGame);
-restartBtn.addEventListener("click", () => {
+//startBtn.addEventListener("click", startGame);
+
+startBtn.addEventListener("click", () => {
     gameOverElement.style.display = "none"; // Dölj Game Over-skärmen
     startGame(); // Starta om spelet
 });
 
 // Event listeners för mobila styrknappar
 upBtn.addEventListener("click", () => changeDirection({ key: "ArrowUp" }));
-downBtn.addEventListener("click", () => changeDirection({ key: "ArrowDown" }));
-leftBtn.addEventListener("click", () => changeDirection({ key: "ArrowLeft" }));
-rightBtn.addEventListener("click", () => changeDirection({ key: "ArrowRight" }));
+//downBtn.addEventListener("click", () => changeDirection({ key: "ArrowDown" }));
+//leftBtn.addEventListener("click", () => changeDirection({ key: "ArrowLeft" }));
+//rightBtn.addEventListener("click", () => changeDirection({ key: "ArrowRight" }));
 
 // Event listener för tangentbordet
 document.addEventListener("keydown", changeDirection);
